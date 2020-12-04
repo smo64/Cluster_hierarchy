@@ -24,7 +24,7 @@ def random_generate(max_x, max_y, quantity):
     return dots, x_vector, y_vector
 
 def plot (dots, x_vector, y_vector):
-    grafica = figure(title='Cluster hierarchy', plot_height = 400, plot_width = 400)
+    grafica = figure(title='Cluster hierarchy')
 
     grafica.circle(x = x_vector, y = y_vector, size = 10)
     show(grafica)
