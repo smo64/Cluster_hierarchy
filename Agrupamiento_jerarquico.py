@@ -1,4 +1,5 @@
 import random
+from bokeh.plotting import figure, show  
 
 def random_generate(max_x, max_y, quantity):
     dots = []
@@ -13,7 +14,9 @@ def random_generate(max_x, max_y, quantity):
     print (dots)
     return dots
 
-
+def plot (x,y):
+   # grafica = figure(title='Cluster hierarchy', plot_height = 400, plot_width = 400)
+    
 
 if __name__ == "__main__":
     max_x = int(input("tamaño del eje x:"))
