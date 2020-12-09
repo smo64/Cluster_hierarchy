@@ -40,11 +40,13 @@ def masive_data(quantity, x_max, y_max):
     return x_values, y_values
 
 #-------------------------------------------------------------------------------------------------------
-def plot(x_values, y_values):
+def plot(x_values, y_values, x1, y1, x2, y2, distancia):
 
+    Texto = "Distancia= " + str(distancia) 
     grafica = figure(title= 'Cluster hierarchy')
 
     grafica.circle(x= x_values, y= y_values, size=10)
+    grafica.line(x = [x1 , x2], y = [y1, y2], color = "red", legend_label = Texto)
     
     show(grafica)
 #------------------------------------------------------------------------------------------------------
@@ -55,7 +57,7 @@ def dist_measure(id1, id2):
 
         distancia = (((x1 - x2)**2)+((y1 - y2)**2))**0.5
 
-        return distancia
+        return distancia, x1, y1, x2, y2
 
 #-------------------------------------------------------------------------------------------------------
 
@@ -82,9 +84,9 @@ def main():
 
     print (get_coord(id1), get_coord(id2))
 
-    distancia = dist_measure(id1, id2)
+    distancia, x1, y1, x2, y2 = dist_measure(id1, id2)
     print (distancia)
-    plot(x_values, y_values)
+    plot(x_values, y_values, x1, y1, x2, y2, distancia)
 
 
 if __name__ == "__main__":
