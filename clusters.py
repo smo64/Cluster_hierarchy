@@ -1,6 +1,8 @@
 import random
 from bokeh.plotting import figure, show
 
+dots = []
+
 class Dato:
     def __init__(self, x, y, id):
         self.x = x
@@ -9,7 +11,7 @@ class Dato:
 
 #-------------------------------------------------------------------------------------------------------
 
-def get_coord (dato, dots):
+def get_coord (dato):
         
         for dot in dots:
             if dot.id == dato:
@@ -17,13 +19,12 @@ def get_coord (dato, dots):
             else:
                 pass
 
-        return self.x, self.y
+        return dot.x, dot.y
 
 #-------------------------------------------------------------------------------------------------------
 
 def masive_data(quantity, x_max, y_max):
 
-    dots = []
     x_values = []
     y_values = []
 
@@ -36,10 +37,10 @@ def masive_data(quantity, x_max, y_max):
         x_values.append(x)
         y_values.append(y)
 
-    return dots, x_values, y_values
+    return x_values, y_values
 
 #-------------------------------------------------------------------------------------------------------
-def plot(dots, x_values, y_values):
+def plot(x_values, y_values):
 
     grafica = figure(title= 'Cluster hierarchy')
 
@@ -49,7 +50,10 @@ def plot(dots, x_values, y_values):
 #------------------------------------------------------------------------------------------------------
 
 def dist_measure(id1, id2):
-        distancia = (((id1.x - id2.x)**2)+((id1.y - id2.y)**2))**0.5
+        x1, y1 = get_coord(id1)
+        x2, y2 = get_coord(id2)
+
+        distancia = (((x1 - x2)**2)+((y1 - y2)**2))**0.5
 
         return distancia
 
@@ -71,14 +75,16 @@ def main():
     except ValueError:
         quantity = 10
 
-    dots, x_values, y_values = masive_data(quantity, x_max, y_max)
+    x_values, y_values = masive_data(quantity, x_max, y_max)
 
     id1 = int(input('valor 1: '))
-    #id2 = int(input('valor 2: '))
+    id2 = int(input('valor 2: '))
 
-    #distancia = dist_measure(id1, id2)
-    print (dots)
-    plot(dots, x_values, y_values)
+    print (get_coord(id1), get_coord(id2))
+
+    distancia = dist_measure(id1, id2)
+    print (distancia)
+    plot(x_values, y_values)
 
 
 if __name__ == "__main__":
