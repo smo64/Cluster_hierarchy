@@ -7,11 +7,17 @@ class Dato:
         self.y = y
         self.id = id
 
-    def get_coord (self,id):
-        pass
+#-------------------------------------------------------------------------------------------------------
 
-    def dist_measure(self, id1, id2):
-        pass
+def get_coord (dato, dots):
+        
+        for dot in dots:
+            if dot.id == dato:
+                break
+            else:
+                pass
+
+        return self.x, self.y
 
 #-------------------------------------------------------------------------------------------------------
 
@@ -40,7 +46,15 @@ def plot(dots, x_values, y_values):
     grafica.circle(x= x_values, y= y_values, size=10)
     
     show(grafica)
+#------------------------------------------------------------------------------------------------------
+
+def dist_measure(id1, id2):
+        distancia = (((id1.x - id2.x)**2)+((id1.y - id2.y)**2))**0.5
+
+        return distancia
+
 #-------------------------------------------------------------------------------------------------------
+
 
 def main():
 
@@ -59,6 +73,11 @@ def main():
 
     dots, x_values, y_values = masive_data(quantity, x_max, y_max)
 
+    id1 = int(input('valor 1: '))
+    #id2 = int(input('valor 2: '))
+
+    #distancia = dist_measure(id1, id2)
+    print (dots)
     plot(dots, x_values, y_values)
 
 
