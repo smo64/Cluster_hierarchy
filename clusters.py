@@ -36,11 +36,14 @@ def masive_data(quantity, x_max, y_max):
     return dots,x_values,y_values
 
 #-------------------------------------------------------------------------------------------------------
-def plot(x_values, y_values):
+def plot(x_values, y_values , dot_a , dot_b):
 
     grafica = figure(title= 'Cluster hierarchy')
+    line_x = [dot_a[0],dot_b[0]]
+    line_y = [dot_a[1],dot_b[1]]
 
     grafica.circle(x= x_values, y= y_values, size=10)
+    grafica.line(x=line_x ,y=line_y,color="red")
     
     show(grafica)
 #-------------------------------------------------------------------------------------------------------
@@ -75,10 +78,12 @@ def main():
 
 
     dots,x_values,y_values = masive_data(quantity, x_max, y_max)
-    plot(x_values, y_values)
 
     measure = measure_distances( dots[ID1].get_coord(), dots[ID2].get_coord())
     print (measure)
+
+    plot(x_values, y_values , dots[ID1].get_coord() , dots[ID2].get_coord())
+
 
 if __name__ == "__main__":
     main()
