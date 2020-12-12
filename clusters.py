@@ -8,7 +8,7 @@ class Dato:
         self.id = id
 
     def get_coord (self):
-        print([self.x , self.y])
+        #print([self.x , self.y])
         return([self.x , self.y])
 
 #-------------------------------------------------------------------------------------------------------
@@ -79,8 +79,7 @@ def main():
 
     dots,x_values,y_values = masive_data(quantity, x_max, y_max)
 
-    measure = measure_distances( dots[ID1].get_coord(), dots[ID2].get_coord())
-    print (measure)
+    print (measure_distances( dots[ID1].get_coord(), dots[ID2].get_coord()))
 
     plot(x_values, y_values , dots[ID1].get_coord() , dots[ID2].get_coord())
 
