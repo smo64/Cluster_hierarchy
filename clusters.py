@@ -1,15 +1,22 @@
 import random
+import math
 from bokeh.plotting import figure, show
 
 class Dato:
     def __init__(self, x, y, id):
-        self.x = x
-        self.y = y
-        self.id = id
+        self._x = x
+        self._y = y
+        self._id = id
+        self._radio = None
+        self._teta = None
 
     def get_coord (self):
-        #print([self.x , self.y])
-        return([self.x , self.y])
+        return([self._x , self._y])
+    
+    def get_coord_polar (self):
+        self._radio = ((self._x)**2+(self._y)**2)**0.5
+        self._teta = math.atan(self._y/self._x)
+        return([self._radio , self._teta])
 
 #-------------------------------------------------------------------------------------------------------
 
