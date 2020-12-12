@@ -7,10 +7,9 @@ class Dato:
         self.y = y
         self.id = id
 
-    def get_coord (self,id):
-        pass
+    def get_coord (self):
+        print([self.x , self.y])
 
-    def dist_measure(self, id1, id2):
 
 #-------------------------------------------------------------------------------------------------------
 
@@ -20,19 +19,19 @@ def masive_data(quantity, x_max, y_max):
     x_values = []
     y_values = []
 
-    for i in range(quantity):
+    for id in range(quantity):
         x = random.randrange(x_max+1)
         y = random.randrange(y_max+1)
-        dot = Dato(x, y, i)
+        dots.append(id)
+        dots[id] = Dato(x,y,id)
 
-        dots.append(dot)
         x_values.append(x)
         y_values.append(y)
 
-    return dots, x_values, y_values
+    return dots,x_values,y_values
 
 #-------------------------------------------------------------------------------------------------------
-def plot(dots, x_values, y_values):
+def plot(x_values, y_values):
 
     grafica = figure(title= 'Cluster hierarchy')
 
@@ -44,22 +43,31 @@ def plot(dots, x_values, y_values):
 def main():
 
     try:
-        x_max = int(input('Ingrese tamaño del eje x (por defecto = 10):'))
+        x_max = int(input('Ingrese tamaño del eje x:'))
     except ValueError:
+        print("10")
         x_max = 10
     try:
-        y_max = int(input('Ingrese tamaño del eje y (por defecto = 10):'))
+        y_max = int(input('Ingrese tamaño del eje y:'))
     except ValueError:
+        print("10")
         y_max = 10
     try:
-        quantity = int(input('Ingrese la cantidad de puntos a generar (por defecto = 10):'))
+        quantity = int(input('Ingrese la cantidad de puntos a generar:'))
     except ValueError:
+        print("10")
         quantity = 10
+    try:
+        ID = int(input('Ingrese el ID:'))
+    except ValueError:
+        print("0")
+        ID = 0
 
-    dots, x_values, y_values = masive_data(quantity, x_max, y_max)
 
-    plot(dots, x_values, y_values)
+    dots,x_values,y_values = masive_data(quantity, x_max, y_max)
+    plot(x_values, y_values)
 
+    dots[ID].get_coord()
 
 if __name__ == "__main__":
     main()
