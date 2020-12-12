@@ -79,7 +79,9 @@ def main():
 
     dots,x_values,y_values = masive_data(quantity, x_max, y_max)
 
-    print (measure_distances( dots[ID1].get_coord(), dots[ID2].get_coord()))
+    print (f"ID 1 = ", dots[ID1].get_coord())
+    print (f"ID 2 = ", dots[ID2].get_coord())
+    print (f"Distance = ", measure_distances( dots[ID1].get_coord(), dots[ID2].get_coord()))
 
     plot(x_values, y_values , dots[ID1].get_coord() , dots[ID2].get_coord())
 
