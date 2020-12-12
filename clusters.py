@@ -9,7 +9,12 @@ class Dato:
 
     def get_coord (self):
         print([self.x , self.y])
+        return([self.x , self.y])
 
+#-------------------------------------------------------------------------------------------------------
+
+def measure_distances(dot_a , dot_b):
+    return ((((dot_a[0]-dot_b[0])**2)+((dot_a[1]-dot_b[1])**2))**0.5)
 
 #-------------------------------------------------------------------------------------------------------
 
@@ -58,16 +63,22 @@ def main():
         print("10")
         quantity = 10
     try:
-        ID = int(input('Ingrese el ID:'))
+        ID1 = int(input('Ingrese el ID 1:'))
     except ValueError:
         print("0")
-        ID = 0
+        ID1 = 0
+    try:
+        ID2 = int(input('Ingrese el ID 2:'))
+    except ValueError:
+        print("1")
+        ID2 = 1
 
 
     dots,x_values,y_values = masive_data(quantity, x_max, y_max)
     plot(x_values, y_values)
 
-    dots[ID].get_coord()
+    measure = measure_distances( dots[ID1].get_coord(), dots[ID2].get_coord())
+    print (measure)
 
 if __name__ == "__main__":
     main()
