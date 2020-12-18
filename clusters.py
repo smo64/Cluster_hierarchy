@@ -30,16 +30,27 @@ def measure_distances(dot_a , dot_b):
 
 def relative_distances(dots):
     dif=[]
+    final_dif=[]
+    n=0
+    f=0
     for dot1 in range(len(dots)):
-            x1,y1,id1=dots[dot1].get_coord_polar()
+            x1,y1,id1=dots[dot1].get_coord()
             for dot2 in range(len(dots)):
-                x2,y2,id2=dots[dot2].get_coord_polar()
+                x2,y2,id2=dots[dot2].get_coord()
                 if id1<id2:
                     dif.append([measure_distances([x1,y1],[x2,y2]),id1,id2,])
     dif.sort()
-    for iteration in range(len(dif)):
-        print(dif[iteration])
-    return(dif)
+    for dis_first in range(len(dif)):
+        _,id1,id2=dif[dis_first]
+        for dis_second in range(len(dif)):
+            _,id3,id4=dif[dis_second]
+            if(id1==id3 or id1==id4 or id2==id3 or id2==id4):
+                f=f+1
+            else:
+                n=n+1           
+    print(f,n)
+    print(len(final_dif))
+    return(final_dif)
             
 
 #-------------------------------------------------------------------------------------------------------
@@ -62,12 +73,34 @@ def masive_data(quantity, x_max, y_max):
     return dots,x_values,y_values
 
 #-------------------------------------------------------------------------------------------------------
-def plot(x_values, y_values):
 
-    grafica = figure(title= 'Cluster hierarchy')
+def combine_dots(list_distances,dots):
+    new_dots = []
+    new_x_values = []
+    new_y_values = []
+    for id in range(len(list_distances)):
+        _,id1,id2=list_distances[id]
+        x1,y1,_=dots[id1].get_coord()
+        x2,y2,_=dots[id2].get_coord()
+
+        x=(x1+x2)/2
+        y=(y1+y2)/2
+
+        new_dots.append(id)
+        new_dots[id] = Dato(x,y,id)
+
+        new_x_values.append(x)
+        new_y_values.append(y)
+    return new_dots,new_x_values,new_y_values
+
+#-------------------------------------------------------------------------------------------------------
+
+def plot(x_values, y_values):
+    grafica = figure(title= "iteration")
     grafica.circle(x= x_values, y= y_values, size=10)
     
     show(grafica)
+
 #-------------------------------------------------------------------------------------------------------
 
 def main():
@@ -90,16 +123,16 @@ def main():
 
 
     dots,x_values,y_values = masive_data(quantity, x_max, y_max)
-    relative_distances(dots)
-
-    '''
-    print (f"ID 1 = ", dots[ID1].get_coord())
-    print (f"ID 2 = ", dots[ID2].get_coord())
-    print (f"Distance = ", measure_distances( dots[ID1].get_coord(), dots[ID2].get_coord()))
-    '''
-
+    list_distances=relative_distances(dots)
     plot(x_values, y_values)
-
+    while(len(dots)>1):
+        try:
+            _ = input('continuar:')
+        except ValueError:
+            pass
+        dots,x_values,y_values=combine_dots(list_distances,dots)
+        list_distances=relative_distances(dots)
+        plot(x_values, y_values)
 
 if __name__ == "__main__":
     main()
