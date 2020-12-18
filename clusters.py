@@ -30,9 +30,9 @@ def measure_distances(dot_a , dot_b):
 
 def relative_distances(dots):
     dif=[]
+    final_list=[]
     final_dif=[]
-    n=0
-    f=0
+
     for dot1 in range(len(dots)):
             x1,y1,id1=dots[dot1].get_coord()
             for dot2 in range(len(dots)):
@@ -40,15 +40,15 @@ def relative_distances(dots):
                 if id1<id2:
                     dif.append([measure_distances([x1,y1],[x2,y2]),id1,id2,])
     dif.sort()
-    for dis_first in range(len(dif)):
-        _,id1,id2=dif[dis_first]
-        for dis_second in range(len(dif)):
-            _,id3,id4=dif[dis_second]
-            if(id1==id3 or id1==id4 or id2==id3 or id2==id4):
-                f=f+1
-            else:
-                n=n+1           
-    print(f,n)
+    for dis in range(len(dif)):
+        _,id_first,id_second=dif[dis]
+        if(id_first in final_list or id_second in final_list):pass
+            #print("repetido")
+        else:
+            final_list.append(id_first)
+            final_list.append(id_second)
+            final_dif.append(dif[dis])
+
     print(len(final_dif))
     return(final_dif)
             
@@ -91,6 +91,14 @@ def combine_dots(list_distances,dots):
 
         new_x_values.append(x)
         new_y_values.append(y)
+
+    length=len(list_distances)
+    if length == 1:pass
+    elif length % 2 != 0:
+        new_dots.append(0)
+        x,y,_=dots[length].get_coord()
+        new_dots[length] = Dato(x,y,length)
+
     return new_dots,new_x_values,new_y_values
 
 #-------------------------------------------------------------------------------------------------------
@@ -125,14 +133,16 @@ def main():
     dots,x_values,y_values = masive_data(quantity, x_max, y_max)
     list_distances=relative_distances(dots)
     plot(x_values, y_values)
-    while(len(dots)>1):
+    while(len(dots) != 1):
         try:
             _ = input('continuar:')
         except ValueError:
             pass
+
         dots,x_values,y_values=combine_dots(list_distances,dots)
         list_distances=relative_distances(dots)
         plot(x_values, y_values)
+
 
 if __name__ == "__main__":
     main()
